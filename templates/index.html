@@ -51,6 +51,17 @@
                         </div>
                     </div>
                 </div>
+                
+                <div id="translation-section" class="d-none mt-3">
+                    <hr>
+                    <div class="mb-3">
+                        <label class="fw-bold"><i class="fas fa-language me-2"></i>English Translation:</label>
+                        <div class="card bg-light p-3 mt-2">
+                            <p id="translated-text" class="mb-0">-</p>
+                        </div>
+                    </div>
+                </div>
+                
                 <hr>
                 <div class="alert alert-info">
                     <i class="fas fa-info-circle me-2"></i>
@@ -88,6 +99,7 @@
                     <li>Analyzes text patterns and statistical properties</li>
                     <li>Compares these patterns to known language models</li>
                     <li>Identifies the most likely language match</li>
+                    <li>Translates non-English text to English</li>
                 </ul>
                 
                 <h6 class="mt-4">Supported Languages:</h6>
@@ -114,6 +126,8 @@
         const languageName = document.getElementById('language-name');
         const languageCode = document.getElementById('language-code');
         const errorMessage = document.getElementById('error-message');
+        const translationSection = document.getElementById('translation-section');
+        const translatedText = document.getElementById('translated-text');
 
         // Form submission handling
         form.addEventListener('submit', function(e) {
@@ -157,6 +171,14 @@
                     languageName.textContent = data.language_name;
                     languageCode.textContent = data.language_code;
                     resultsCard.classList.remove('d-none');
+                    
+                    // Handle translation display
+                    if (data.translated_text && data.language_code !== 'en') {
+                        translatedText.textContent = data.translated_text;
+                        translationSection.classList.remove('d-none');
+                    } else {
+                        translationSection.classList.add('d-none');
+                    }
                 } else {
                     // Show error
                     showError(data.error);

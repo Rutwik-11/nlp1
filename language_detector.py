@@ -1,10 +1,35 @@
 import logging
 from langdetect import detect, LangDetectException
 from language_codes import LANGUAGE_CODES
+from deep_translator import GoogleTranslator
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
+
+def translate_to_english(text, source_lang):
+    """
+    Translates text from the source language to English
+    
+    Args:
+        text (str): The text to translate
+        source_lang (str): The source language code
+        
+    Returns:
+        str: The translated text in English, or None if translation failed
+    """
+    try:
+        # Skip translation if already in English
+        if source_lang == 'en':
+            return text
+            
+        translator = GoogleTranslator(source=source_lang, target='en')
+        translated_text = translator.translate(text)
+        logger.debug(f"Translated text from {source_lang} to English")
+        return translated_text
+    except Exception as e:
+        logger.error(f"Translation error: {str(e)}")
+        return None
 
 def detect_language(text):
     """
@@ -19,12 +44,14 @@ def detect_language(text):
             - 'language_name': The full name of the detected language
             - 'success': Boolean indicating if detection was successful
             - 'error': Error message if detection failed
+            - 'translated_text': The text translated to English (if successful)
     """
     result = {
         'language_code': None,
         'language_name': None,
         'success': False,
-        'error': None
+        'error': None,
+        'translated_text': None
     }
     
     # Validate input
@@ -49,6 +76,14 @@ def detect_language(text):
         result['success'] = True
         
         logger.debug(f"Detected language: {lang_code} ({lang_name})")
+        
+        # Translate text to English if not already in English
+        if lang_code != 'en':
+            translated_text = translate_to_english(text, lang_code)
+            result['translated_text'] = translated_text
+        else:
+            # Text is already in English
+            result['translated_text'] = text
         
     except LangDetectException as e:
         logger.error(f"Language detection error: {str(e)}")
@@ -75,6 +110,8 @@ def cli_interface():
         
         if result['success']:
             print(f"\nDetected Language: {result['language_name']} ({result['language_code']})")
+            if result['translated_text'] and result['language_code'] != 'en':
+                print(f"\nEnglish Translation: {result['translated_text']}")
         else:
             print(f"\nError: {result['error']}")
 
