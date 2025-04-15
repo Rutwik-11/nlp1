@@ -1,0 +1,76 @@
+/* Custom styles for the Language Detector application */
+
+/* General styling enhancements */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* Card enhancements */
+.card {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.card-header {
+    font-weight: 500;
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Textarea styling */
+textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Result display styling */
+#language-name {
+    color: var(--bs-info);
+}
+
+#language-code {
+    font-size: 1rem;
+    font-family: monospace;
+}
+
+/* Code blocks */
+pre {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 0.25rem;
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+code {
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Animations */
+.card:not(.d-none) {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom navbar brand styling */
+.navbar-brand i {
+    margin-right: 0.5rem;
+    font-size: 1.25rem;
+}
+
+/* Footer styling */
+footer {
+    margin-top: auto;
+}
