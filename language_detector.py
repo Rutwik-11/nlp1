@@ -94,27 +94,4 @@ def detect_language(text):
         
     return result
 
-def cli_interface():
-    """Command-line interface for the language detector"""
-    print("\n===== Language Detector =====")
-    print("Enter text to detect its language (or 'q' to quit)")
-    
-    while True:
-        user_input = input("\nEnter text: ")
-        
-        if user_input.lower() == 'q':
-            print("Goodbye!")
-            break
-            
-        result = detect_language(user_input)
-        
-        if result['success']:
-            print(f"\nDetected Language: {result['language_name']} ({result['language_code']})")
-            if result['translated_text'] and result['language_code'] != 'en':
-                print(f"\nEnglish Translation: {result['translated_text']}")
-        else:
-            print(f"\nError: {result['error']}")
 
-
-if __name__ == "__main__":
-    cli_interface()

@@ -26,10 +26,7 @@ def detect():
     
     return jsonify(result)
 
-@app.route('/cli')
-def cli_info():
-    """Render information about the CLI version"""
-    return render_template('cli_info.html')
+
 
 @app.errorhandler(404)
 def page_not_found(e):
