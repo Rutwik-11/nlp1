@@ -49,9 +49,9 @@ Then open a browser and navigate to `http://localhost:5000`
 
 MIT License
 
-## Author
+## For trying this site use this link
 
-Your Name / Organization
+(https://d4652527-7883-4233-bcdc-4225b28f713b-00-2cg1bjd1wowdf.spock.replit.dev/)
 
 ## Acknowledgements
 
